@@ -1,0 +1,5 @@
+{
+  "entrypoint":  "net.buycraft.plugin.minestom.BuycraftPlugin",
+  "name": "BuycraftX",
+  "version": "${project.version}"
+}

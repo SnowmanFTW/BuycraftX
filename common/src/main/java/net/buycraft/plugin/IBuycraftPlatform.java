@@ -128,4 +128,5 @@ public interface IBuycraftPlatform {
      * @return the server information
      */
     ServerInformation getServerInformation();
+
 }
