@@ -163,6 +163,10 @@ public class BuycraftPlugin extends Extension {
         if (completedCommandsTask != null) {
             completedCommandsTask.flush();
         }
+        // manually shutdown okhttp because the server may shutdown by itself (e.g. with a /stop command)
+        this.httpClient.dispatcher().executorService().shutdown();
+        this.httpClient.connectionPool().evictAll();
+        this.httpClient.cache().close();
     }
 
     public BuyCraftAPI getApiClient() {
