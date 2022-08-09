@@ -163,10 +163,15 @@ public class BuycraftPlugin extends Extension {
         if (completedCommandsTask != null) {
             completedCommandsTask.flush();
         }
-        // manually shutdown okhttp because the server may shutdown by itself (e.g. with a /stop command)
+        // manually shutdown okhttp because the server may shut down by itself (e.g. with a /stop command)
         this.httpClient.dispatcher().executorService().shutdown();
         this.httpClient.connectionPool().evictAll();
-        this.httpClient.cache().close();
+        try {
+            //noinspection ConstantConditions
+            this.httpClient.cache().close();
+        } catch (IOException e) {
+            MinecraftServer.LOGGER.error("Can't close cache", e);
+        } catch (NullPointerException ignore) {}
     }
 
     public BuyCraftAPI getApiClient() {
